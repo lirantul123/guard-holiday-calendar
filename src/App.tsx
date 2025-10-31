@@ -50,7 +50,7 @@ const App: React.FC = () => {
 
   // Add/Edit/Delete Guards
   const addShift = () => {
-    if (!shiftForm.name || !shiftForm.date) return alert("Please fill all fields.");
+    if (!shiftForm.date) return alert("Please fill all fields.");
     setShifts([...shifts, { id: Date.now(), ...shiftForm }]);
     setShiftForm({ name: "", date: "" });
   };
@@ -162,14 +162,14 @@ const App: React.FC = () => {
 
       <div className="form-section">
         <h2>Add / Edit Guard</h2>
-        <input type="text" placeholder="Guard name" value={shiftForm.name} onChange={(e) => setShiftForm({ ...shiftForm, name: e.target.value })} />
+        <input type="text" placeholder="Description" value={shiftForm.name} onChange={(e) => setShiftForm({ ...shiftForm, name: e.target.value })} />
         <input type="date" value={shiftForm.date} onChange={(e) => setShiftForm({ ...shiftForm, date: e.target.value })} />
         <button className="guard-btn" onClick={addShift}>Save Guard</button>
       </div>
 
       <div className="form-section">
         <h2>Add / Edit Holiday</h2>
-        <input type="text" placeholder="Holiday name" value={holidayForm.name} onChange={(e) => setHolidayForm({ ...holidayForm, name: e.target.value })} />
+        <input type="text" placeholder="Holiday Description*" value={holidayForm.name} onChange={(e) => setHolidayForm({ ...holidayForm, name: e.target.value })} />
         <input type="date" value={holidayForm.startDate} onChange={(e) => setHolidayForm({ ...holidayForm, startDate: e.target.value })} />
         <input type="date" value={holidayForm.endDate} onChange={(e) => setHolidayForm({ ...holidayForm, endDate: e.target.value })} />
         <button className="holiday-btn" onClick={addHoliday}>Save Holiday</button>
@@ -189,7 +189,7 @@ const App: React.FC = () => {
         <h2>Guards List</h2>
         {shifts.length === 0 ? <p>No guards yet.</p> : shifts.map((s) => (
           <div key={s.id} className="list-item">
-            <span>🪖 {s.name} – {s.date}</span>
+            <span>🪖 {s.name}: {s.date}</span>
             <div className="actions">
               <button onClick={() => editShift(s.id)}>✏️</button>
               <button onClick={() => deleteShift(s.id)}>🗑️</button>
